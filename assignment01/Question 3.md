@@ -1,0 +1,1 @@
+![Image of TeraTerm screen capture](/images/ScreenCapture.JPG)
