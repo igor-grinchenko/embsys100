@@ -1,1 +1,1 @@
-![Image of TeraTerm screen capture](/images/ScreenCapture.JPG)
+![Image of TeraTerm screen capture](https://github.com/igor-grinchenko/embsys100/blob/master/assignment01/ScreenCapture.JPG)
