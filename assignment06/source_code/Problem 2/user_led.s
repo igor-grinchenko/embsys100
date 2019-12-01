@@ -53,36 +53,18 @@ Return value    : None
 *******************************************************************************/  
 
 control_user_led
-    // Enable clock to peripheral
-    PUSH {R2, R3, R4} 	// save R2, R3, R4 registers on CSTACK
-    MOV R2, #0x3830	// load RCC_AHB1ENR address into R2 register
-    MOVT R2, #0x4002 // load RCC_AHB1ENR address into R2 register
-    LDR R3, [R2]	// dereference RCC_AHB1ENR to R3 register
-    MOV R4, #0x1	// Write 0x1 to enable clock to peripheral
-    ORR R3, R3, R4	// Write 0x1 to enable clock to peripheral
-    STR R3, [R2]	// Write 0x1 to enable clock to peripheral
-    // Enable GPIO5 to be an output
-    MOV R2, #0
-    MOVT R2, #0x4002        // load GPIOA_MODER address into R2 register
-    LDR R3, [R2]	// Dereference GPIOA_MODER to R3 register
-    MOV R4, #0x0400	// Write 0xA8000400 to GPIOA_MODER register to configure MODER5 to output
-    MOVT R4, #0xA800 // Write 0xA8000400 to GPIOA_MODER register to configure MODER5 to output
-    ORR R3, R3, R4	// Write 0xA8000400 to GPIOA_MODER register to configure MODER5 to output
-    STR R3, [R2]	// Write 0xA8000400 to GPIOA_MODER register to configure MODER5 to output
-	
+    PUSH {R2, R3} 	// save R2, R3 registers on CSTACK
     MOV R2, #0x0014   // Load ODR5 register to control LED2
-    MOVT R2, #0x4002   // Load ODR5 register to control LED2
-    MOV R3, #0x0020   // LED ON
-    MOVT R3, #0xA800  // LED ON
-    MOV R4, #0   // LED OFF
-    MOVT R4, #0xA800   // LED OFF
-	
+    MOVT R2, #0x4002   // Load ODR5 register to control LED2	
     // The function takes as input the LED requested state (0 == OFF, 1 == ON)
     CBZ R0, LEDoff  // Compare and Branch on Zero for user input
     CMP R0, #1      // Compare and Branch for user input
     BEQ LEDon       // Compare and Branch for user input
     B Return	// Exit if user input is invalid
+    
 LEDon
+    MOV R3, #0x0020   // LED ON
+    MOVT R3, #0xA800  // LED ON
     STR R3, [R2]    // LED ON
     PUSH {LR}       // Save LR
     BL delay
@@ -90,12 +72,14 @@ LEDon
     B Return
 	
 LEDoff	
-    STR R4, [R2]    // LED OFF
+    MOV R3, #0   // LED OFF
+    MOVT R3, #0xA800   // LED OFF
+    STR R3, [R2]    // LED OFF
     PUSH {LR}       // Save LR
     BL delay
     POP {LR}        // Restore LR
 	
 Return
-    POP {R2, R3, R4}	// restore R2, R3, R4 registers from CSTACK
+    POP {R2, R3}	// restore R2, R3 registers from CSTACK
     BX LR           // Return
     END
