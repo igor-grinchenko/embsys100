@@ -47,10 +47,10 @@ Return value    : None
 *******************************************************************************/  
   
 delay
-loop				// label p1
+loop				// label loop
 	CBZ R1, return		// Compare and Branch on Zero    
         SUB R1, R1, #1		// Subtract 1
-	B loop			// branch to label p1
+	B loop			// branch to label loop
         
 return
     BX LR           // return    
