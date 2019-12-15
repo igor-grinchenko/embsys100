@@ -1,8 +1,8 @@
+
 /**
 Igor Grinchenko
 EMBSYS100
 Assignment 08
-
   ******************************************************************************
   * @file           : main.c
   * @brief          : Main program body

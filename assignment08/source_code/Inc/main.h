@@ -1,8 +1,4 @@
 /**
-Igor Grinchenko
-EMBSYS100
-Assignment 08
-
   ******************************************************************************
   * @file           : main.h
   * @brief          : Header for main.c file.
