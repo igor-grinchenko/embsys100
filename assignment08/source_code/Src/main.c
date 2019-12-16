@@ -1,8 +1,9 @@
-
 /**
 Igor Grinchenko
 EMBSYS100
-Assignment 08
+Assignment08
+12/15/2019
+
   ******************************************************************************
   * @file           : main.c
   * @brief          : Main program body
@@ -43,19 +44,9 @@ Assignment 08
 #include "main.h"
 #include "stm32f4xx_hal.h"
 
-/* USER CODE BEGIN Includes */
-
-/* USER CODE END Includes */
-
 /* Private variables ---------------------------------------------------------*/
 TIM_HandleTypeDef htim2;
-
 UART_HandleTypeDef huart2;
-
-/* USER CODE BEGIN PV */
-/* Private variables ---------------------------------------------------------*/
-
-/* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
@@ -63,17 +54,7 @@ static void MX_GPIO_Init(void);
 static void MX_USART2_UART_Init(void);
 static void MX_TIM2_Init(void);                                    
 void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
-void user_pwm_setvalue(uint16_t value);
-int pwm_value; // Value to be loaded into the Capture Compare Register                               
-
-/* USER CODE BEGIN PFP */
-/* Private function prototypes -----------------------------------------------*/
-
-/* USER CODE END PFP */
- 
-/* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
+void user_pwm_setvalue(uint16_t value);                              
 
 /**
   * @brief  The application entry point.
@@ -82,37 +63,24 @@ int pwm_value; // Value to be loaded into the Capture Compare Register
   */
 int main(void)
 {
-  /* USER CODE BEGIN 1 */
     int step;
-  /* USER CODE END 1 */
+    int pwm_value; // Value to be loaded into the Capture Compare Register 
 
   /* MCU Configuration----------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
   HAL_Init();
 
-  /* USER CODE BEGIN Init */
-
-  /* USER CODE END Init */
-
   /* Configure the system clock */
   SystemClock_Config();
-
-  /* USER CODE BEGIN SysInit */
-
-  /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_USART2_UART_Init();
   MX_TIM2_Init();
   HAL_TIM_PWM_Start(&htim2,TIM_CHANNEL_1);
-  /* USER CODE BEGIN 2 */
-
-  /* USER CODE END 2 */
 
   /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
   while (1)
   {
     HAL_Delay(50); 
@@ -120,13 +88,7 @@ int main(void)
     if(pwm_value == 2000) step = -100;
     pwm_value += step;
     user_pwm_setvalue(pwm_value);
-    
-  /* USER CODE END WHILE */
-
-  /* USER CODE BEGIN 3 */
-
   }
-  /* USER CODE END 3 */
 }
 
 /**
@@ -190,7 +152,6 @@ void SystemClock_Config(void)
 /* TIM2 init function */
 static void MX_TIM2_Init(void)
 {
-
   TIM_MasterConfigTypeDef sMasterConfig;
   TIM_OC_InitTypeDef sConfigOC;
 
@@ -219,9 +180,7 @@ static void MX_TIM2_Init(void)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
-
   HAL_TIM_MspPostInit(&htim2);
-
 }
 
 void user_pwm_setvalue(uint16_t value)
@@ -238,7 +197,6 @@ void user_pwm_setvalue(uint16_t value)
 /* USART2 init function */
 static void MX_USART2_UART_Init(void)
 {
-
   huart2.Instance = USART2;
   huart2.Init.BaudRate = 115200;
   huart2.Init.WordLength = UART_WORDLENGTH_8B;
@@ -251,7 +209,6 @@ static void MX_USART2_UART_Init(void)
   {
     _Error_Handler(__FILE__, __LINE__);
   }
-
 }
 
 /** Configure pins as 
@@ -263,7 +220,6 @@ static void MX_USART2_UART_Init(void)
 */
 static void MX_GPIO_Init(void)
 {
-
   GPIO_InitTypeDef GPIO_InitStruct;
 
   /* GPIO Ports Clock Enable */
@@ -279,10 +235,6 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(B1_GPIO_Port, &GPIO_InitStruct);
 
 }
-
-/* USER CODE BEGIN 4 */
-
-/* USER CODE END 4 */
 
 /**
   * @brief  This function is executed in case of error occurrence.
